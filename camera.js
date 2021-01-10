@@ -1,5 +1,3 @@
-
-
 class Camera {
     constructor({C, N, V, d, hx, hy}) {
         this.C = C
@@ -106,18 +104,5 @@ class Camera {
             x: screenX,
             y: screenY
         }
-
     }
 }
-
-
-// let camera = new Camera({
-//     C: [1, 1, 2],
-//     N: [-1, -1, -1],
-//     V: [0, 0, 1],
-//     d: 1,
-//     hx: 1,
-//     hy: 1
-// })
-
-// camera.calculateViewCoordinates([1, -3, -5])
