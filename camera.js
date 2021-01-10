@@ -87,6 +87,27 @@ class Camera {
         }
         return coordinates
     }
+
+    calculateScreenCoordinates(globalCoordinates, w, h) {
+        let viewCoordinates = this.calculateViewCoordinates(globalCoordinates)
+        // console.log("view coords: ", viewCoordinates)
+        let projectionX = this.d * viewCoordinates[0] / viewCoordinates[2]
+        let projectionY = this.d * viewCoordinates[1] / viewCoordinates[2]
+        // console.log("Projx:", projectionX)
+        // console.log("Projy:", projectionY)
+        let normalizedX = projectionX / this.hx
+        let normalizedY = projectionY / this.hy
+        // console.log(normalizedX, normalizedY)
+
+        let screenX = Math.round(((normalizedX + 1) / 2) * w)
+        let screenY = Math.round(h - (((normalizedY + 1) / 2) * h))
+
+        return {
+            x: screenX,
+            y: screenY
+        }
+
+    }
 }
 
 

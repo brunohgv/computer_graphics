@@ -34,7 +34,11 @@ let viewPoint0 = camera.calculatePointViewCoordinates([p0.x, p0.y, p0.z])
 let viewPoint1 = camera.calculatePointViewCoordinates([p1.x, p1.y, p1.z])
 let viewPoint2 = camera.calculatePointViewCoordinates([p2.x, p2.y, p2.z])
 
-console.log(viewPoint0, viewPoint1, viewPoint2)
+let screenPoint0 = camera.calculateScreenCoordinates([p0.x, p0.y, p0.z], width, height)
+let screenPoint1 = camera.calculateScreenCoordinates([p1.x, p1.y, p1.z], width, height)
+let screenPoint2 = camera.calculateScreenCoordinates([p2.x, p2.y, p2.z], width, height)
+
+console.log(screenPoint0, screenPoint1, screenPoint2)
 // rasterizer.rasterizeTriangle(p0, p1, p2)
-rasterizer.rasterizeTriangle(viewPoint0, viewPoint1, viewPoint2)
+rasterizer.rasterizeTriangle(screenPoint0, screenPoint1, screenPoint2)
 
