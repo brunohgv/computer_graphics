@@ -9,11 +9,43 @@
         #viewport {
             border: 1px solid black;
         }
+        .number-input {
+            width: 40px;
+        }
     </style>
 </head>
 <body>
     <div>
         <input type="file" onchange="readFile(this)">
+        <div>
+            Camera params:
+            <div>
+                <div>
+                    Cx: <input class="number-input" id="camera-cx" type="number"> Cy: <input class="number-input" id="camera-cy" type="number"> Cz: <input class="number-input" id="camera-cz" type="number">
+                </div>
+            </div>
+            <div>
+                <div>
+                    Nx: <input class="number-input" id="camera-nx" type="number"> Ny: <input class="number-input" id="camera-ny" type="number"> Nz: <input class="number-input" id="camera-nz" type="number">
+                </div>
+            </div>
+            <div>
+                <div>
+                    Vx: <input class="number-input" id="camera-vx" type="number"> Vy: <input class="number-input" id="camera-vy" type="number"> Vz: <input class="number-input" id="camera-vz" type="number">
+                </div>
+            </div>
+            <div>
+                d: <input class="number-input" id="camera-d" type="number">
+            </div>        
+            <div>
+                hx: <input class="number-input" id="camera-hx" type="number">
+            </div>        
+            <div>
+                hy: <input class="number-input" id="camera-hy" type="number">
+            </div>        
+
+        </div>
+        <button onclick="populateCameraWithDefaultValues()">Populate default values</button>
         <button onclick="processFileData()">Load Image</button>
     </div>
     <canvas id="viewport" width="1000" height="600"></canvas>

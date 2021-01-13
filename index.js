@@ -9,14 +9,44 @@ const height = viewport.height / PIXEL_SIZE
 let canvas = new Canvas(ctx, PIXEL_SIZE)
 let rasterizer = new Rasterizer(canvas)
 
-let camera = new Camera({
-    C: [0, -500, 500],
-    N: [0, 1, -1],
-    V: [0, -1, -1],
-    d: 5,
-    hx: 2,
-    hy: 2
-})
+function populateCameraWithDefaultValues() {
+    document.getElementById('camera-cx').value = 0
+    document.getElementById('camera-cy').value = -500
+    document.getElementById('camera-cz').value = 500
+    document.getElementById('camera-nx').value = 0
+    document.getElementById('camera-ny').value = 1
+    document.getElementById('camera-nz').value = -1
+    document.getElementById('camera-vx').value = 0
+    document.getElementById('camera-vy').value = -1
+    document.getElementById('camera-vz').value = -1
+    document.getElementById('camera-d').value = 5
+    document.getElementById('camera-hx').value = 2
+    document.getElementById('camera-hy').value = 2
+}
+
+function buildCameraFromUserParams() {
+    let cx = parseInt(document.getElementById('camera-cx').value)
+    let cy = parseInt(document.getElementById('camera-cy').value)
+    let cz = parseInt(document.getElementById('camera-cz').value)
+    let nx = parseInt(document.getElementById('camera-nx').value)
+    let ny = parseInt(document.getElementById('camera-ny').value)
+    let nz = parseInt(document.getElementById('camera-nz').value)
+    let vx = parseInt(document.getElementById('camera-vx').value)
+    let vy = parseInt(document.getElementById('camera-vy').value)
+    let vz = parseInt(document.getElementById('camera-vz').value)
+    let d =  parseInt(document.getElementById('camera-d').value)
+    let hx = parseInt(document.getElementById('camera-hx').value)
+    let hy = parseInt(document.getElementById('camera-hy').value)
+
+    return new Camera({
+        C: [cx, cy, cz],
+        N: [nx, ny, nz],
+        V: [vx, vy, vz],
+        d: d,
+        hx: hx,
+        hy: hy
+    })
+}
 
 canvas.setColor('#FFF')
 canvas.erase()
@@ -29,7 +59,6 @@ function readFile(input) {
     reader.readAsText(f)
     reader.onload = function () {
         fileData = reader.result
-        // console.log(fileData)
     }
     reader.onerror = function () {
         console.error(reader.error)
@@ -37,10 +66,10 @@ function readFile(input) {
 }
 
 function processFileData() {
+    const camera = buildCameraFromUserParams()
     canvas.erase()
     const fileRows = fileData.split('\n')
     const fileRowsWithColumns = fileRows.map(row => row.split(' '))
-    // console.log(fileRowsWithColumns)
     let header = fileRowsWithColumns[0]
     let numberOfVertices = Number(header[0])
     let numberOfTriangles = Number(header[1])
@@ -63,26 +92,5 @@ function processFileData() {
         let p1 = verticesMap.get(indexP1)
         let p2 = verticesMap.get(indexP2)
         rasterizer.rasterizeTriangle(p0, p1, p2)
-        // console.log(i, p0, p1, p2)
     }
 }
-
-// let p0 = {x: 10, y: 50, z: 0}
-// let p1 = {x: 40, y: 10, z: 0}
-// let p2 = {x: 50, y: 60, z: 0}
-
-// rasterizer.rasterizeTriangle(viewPoint0, viewPoint1, viewPoint2)
-// rasterizer.rasterizeTriangle(p0, p1, p2)
-
-// p0 = {x: 25, y: -5, z: 200}
-// p1 = {x: 75, y: -60, z: 200}
-// p2 = {x: 100, y: 25, z: 200}
-
-// let screenPoint0 = camera.calculateScreenCoordinates([p0.x, p0.y, p0.z], width, height)
-// let screenPoint1 = camera.calculateScreenCoordinates([p1.x, p1.y, p1.z], width, height)
-// let screenPoint2 = camera.calculateScreenCoordinates([p2.x, p2.y, p2.z], width, height)
-
-// console.log(screenPoint0, screenPoint1, screenPoint2)
-// // rasterizer.rasterizeTriangle(p0, p1, p2)
-// rasterizer.rasterizeTriangle(screenPoint0, screenPoint1, screenPoint2)
-

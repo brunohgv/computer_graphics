@@ -6,7 +6,6 @@ class Rasterizer {
 
     rasterizeTriangle(po0, po1, po2) {
         if (po0 === po1 || po1 === po2 || po2 === po0) {
-            // console.log(po0, po1, po2)
             throw new Error('This is not a triangle')
         }
         let sorted = [po0, po1, po2].sort(this.sortByYThenX)
@@ -36,7 +35,6 @@ class Rasterizer {
     }
     
     getLinePoints(p0, p1) {
-        // console.log(p0, p1)
         if (p0.y < p1.y) {
             return this.getLinePointsOrdered(p0, p1)
         } else {
@@ -48,7 +46,7 @@ class Rasterizer {
         let points = []
         let deltax = p1.x - p0.x
         let deltay = p1.y - p0.y
-        for(let y = p0.y ; y < p1.y ; y++) {
+        for(let y = p0.y ; y <= p1.y ; y++) {
             let x = Math.round((deltax/deltay) * (y - p0.y) + p0.x)
             points.push({x, y})
             this.canvas.draw(x, y)
